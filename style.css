@@ -1,3 +1,13 @@
+body{
+    user-select: none;
+}
+
 .container{
     display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    height: 500px;
+    border-style: solid;
+    border-width: 2px;
+    margin: auto;
 }
