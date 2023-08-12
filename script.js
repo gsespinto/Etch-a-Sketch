@@ -30,6 +30,10 @@ backgroundPicker.addEventListener("input", () => {
     setBackgroundColor(backgroundPicker.value)
 });
 
+// Get and assign save bt
+let saveBt = document.querySelector("#save-bt");
+saveBt.addEventListener("click", savePainting);
+
 function setBackgroundColor(value){
     // Store last bg and assign new one
     let oldBg = bg;
@@ -107,4 +111,35 @@ function resize(){
     }
 
     spawnGrid();
+}
+
+function savePainting() {
+    // Convert sketch content to a canvas using html2canvas
+    html2canvas(sketch).then(function(canvas) {
+        // Convert canvas to data URL
+        const dataURL = canvas.toDataURL('image/png');
+        
+        // Create a Blob from the data URL
+        const blob = dataURLtoBlob(dataURL);
+        
+        // Create a download link
+        const fileName = 'painting.png';
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        a.click();
+    });
+}
+
+function dataURLtoBlob(dataURL) {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bStr = atob(arr[1]);
+    let n = bStr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bStr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
 }
