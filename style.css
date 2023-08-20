@@ -1,5 +1,7 @@
 body{
     user-select: none;
+    /*background-color: black;
+    color: white;*/
 }
 
 .content{
@@ -39,4 +41,19 @@ button{
     border-radius: 20px;
     background-color: orange;
     font-weight: bolder;
+}
+
+.button-img{
+    height: 90%;
+    width: auto;
+}
+
+.last-bts{
+    display: flex;
+    width: 100%;
+    justify-content:space-between;
+}
+
+.last-bts button{
+    width: 70px;
 }

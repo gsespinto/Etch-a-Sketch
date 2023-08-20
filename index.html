@@ -12,7 +12,9 @@
     <div class="content">
         <div class="ui">
             <button id="resize-bt">Resize</button>
-            <button id="tool">Tool</button>
+            <button id="tool">
+                <img id="tool-img" class="button-img" src="img/pencil.png"/>
+            </button>
         
             <div id="paint-picker-container">
                 <label for="paint-picker">Color Picker:</label>
@@ -24,7 +26,15 @@
                 <input type="color" id="background-picker" value="#ffffff">
             </div>
         
-            <button id="save-bt">Save sketch</button>
+            <div class="last-bts">
+                <button id="mute-bt">
+                    <img class="button-img" id="audio-img" src="img/audio_icon.png"/>
+                </button>
+                <button id="save-bt">
+                    <img class="button-img" src="img/save.png"/>
+                </button>
+            </div>
+            
         </div>
     
         <div class="sketch-grid"></div>  

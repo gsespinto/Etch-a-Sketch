@@ -4,19 +4,56 @@ let isErasing = false;
 let paint = "#000000";
 let bg = "#ffffff";
 
+// Audio
+let clickAudio = new Audio("audio/click.wav");
+let pencilAudio = new Audio("audio/pencil.wav");
+let eraserAudio = new Audio("audio/eraser.wav");
+
+let audioMuted = false;
+
 // Get sketch
 let sketch = document.querySelector(".sketch-grid");
 // Assign painting events
-sketch.addEventListener("mousedown", () => isPainting = true);
-document.addEventListener("mouseup", () => isPainting = false);
+sketch.addEventListener("mousedown", () => {
+    isPainting = true;
+    if (!audioMuted){
+        if (isErasing){
+            pencilAudio.pause();
+            eraserAudio.play();
+        } else {
+            eraserAudio.pause();
+            pencilAudio.play();
+        }
+    }
+});
+document.addEventListener("mouseup", () => {
+    isPainting = false;
+    pencilAudio.pause();
+    eraserAudio.pause();
+});
 
 // Get and assign resize bt
 let resizeBt = document.querySelector("#resize-bt");
-resizeBt.addEventListener("click", resize);
+resizeBt.addEventListener("click", () => {
+    if (!audioMuted){
+        clickAudio.currentTime = 0;
+        clickAudio.play();
+    }
+    
+    resize();
+});
 
 // Get and assign tool bt
 let toolBt = document.querySelector("#tool");
-toolBt.addEventListener("click", toggleTool);
+toolBt.addEventListener("click", () => {
+    if (!audioMuted){
+        clickAudio.currentTime = 0;
+        clickAudio.play();
+    }
+    
+    toggleTool()
+});
+let toolImg = document.querySelector("#tool-img");
 
 // Get and assign paint picker color
 let paintPicker = document.querySelector('#paint-picker');
@@ -32,7 +69,27 @@ backgroundPicker.addEventListener("input", () => {
 
 // Get and assign save bt
 let saveBt = document.querySelector("#save-bt");
-saveBt.addEventListener("click", savePainting);
+saveBt.addEventListener("click", () => {
+    if (!audioMuted){
+        clickAudio.currentTime = 0;
+        clickAudio.play();
+    }
+    
+    savePainting();
+});
+
+// Get and assign audio bt
+let audioImg = document.querySelector("#audio-img");
+let muteBt = document.querySelector("#mute-bt");
+muteBt.addEventListener("click", () => {
+    audioMuted ? unmutePage() : mutePage();
+    audioImg.src = audioMuted ? "img/mute_icon.png" : "img/audio_icon.png";
+
+    if (!audioMuted){
+        clickAudio.currentTime = 0;
+        clickAudio.play();
+    }
+});
 
 function setBackgroundColor(value){
     // Store last bg and assign new one
@@ -60,10 +117,16 @@ function hexToRGB(hex) {
     return `rgb(${r}, ${g}, ${b})`;
 }
 
+setTool(false);
 spawnGrid();
 
 function toggleTool(){
-    isErasing = !isErasing;
+    setTool(!isErasing);
+}
+
+function setTool(erase){
+    isErasing = erase;
+    toolImg.src = isErasing ? "img/rubber.png" : "img/pencil.png";
 }
 
 function leaveSelfTrail()
@@ -142,4 +205,27 @@ function dataURLtoBlob(dataURL) {
         u8arr[n] = bStr.charCodeAt(n);
     }
     return new Blob([u8arr], { type: mime });
+}
+
+// Mute a singular HTML5 element
+function muteMe(elem) {
+    elem.muted = true;
+    elem.pause();
+}
+
+// Mute a singular HTML5 element
+function unmuteMe(elem) {
+    elem.muted = false;
+}
+
+// Try to mute all video and audio elements on the page
+function mutePage() {
+    audioMuted = true;
+    document.querySelectorAll("video, audio").forEach((elem) => muteMe(elem));
+}
+
+// Try to mute all video and audio elements on the page
+function unmutePage() {
+    audioMuted = false;
+    document.querySelectorAll("video, audio").forEach((elem) => unmuteMe(elem));
 }
