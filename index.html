@@ -11,24 +11,31 @@
 <body>
     <div class="content">
         <div class="ui">
-            <button id="resize-bt">Resize</button>
+            <div class="container">
+                <label for="grid-size">Grid size:</label> 
+                <select name="grid-size" id="grid-size"> 
+                </select>
+            </div>
+
+            <!--<button id="resize-bt">Resize</button>-->
+            
             <button id="tool">
                 <img id="tool-img" class="button-img" src="img/pencil.png"/>
             </button>
         
-            <div id="paint-picker-container">
-                <label for="paint-picker">Color Picker:</label>
+            <div class="container">
+                <label for="paint-picker">Paint Color:</label>
                 <input type="color" id="paint-picker" value="#000000">
             </div>
             
-            <div id="background-picker-container">
-                <label for="background-picker">Background Picker:</label>
+            <div class="container">
+                <label for="background-picker">Background Color:</label>
                 <input type="color" id="background-picker" value="#ffffff">
             </div>
         
             <div class="last-bts">
                 <button id="mute-bt">
-                    <img class="button-img" id="audio-img" src="img/audio_icon.png"/>
+                    <img class="button-img" id="audio-img"  src="img/audio_icon.png"/>
                 </button>
                 <button id="save-bt">
                     <img class="button-img" src="img/save.png"/>

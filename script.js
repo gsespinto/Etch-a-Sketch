@@ -1,3 +1,4 @@
+let maxGridSize = 100;
 let gridSize = 16;
 let isPainting = false;
 let isErasing = false;
@@ -33,6 +34,13 @@ document.addEventListener("mouseup", () => {
 });
 
 // Get and assign resize bt
+let gridDropdown = document.querySelector("#grid-size");
+gridDropdown.addEventListener("change", () => {
+    gridSize = gridDropdown.selectedIndex + 1;
+    spawnGrid();
+});
+
+/*// Get and assign resize bt
 let resizeBt = document.querySelector("#resize-bt");
 resizeBt.addEventListener("click", () => {
     if (!audioMuted){
@@ -41,7 +49,7 @@ resizeBt.addEventListener("click", () => {
     }
     
     resize();
-});
+});*/
 
 // Get and assign tool bt
 let toolBt = document.querySelector("#tool");
@@ -118,7 +126,19 @@ function hexToRGB(hex) {
 }
 
 setTool(false);
+fillDropdown();
 spawnGrid();
+
+function fillDropdown(){
+    for (let i = 1; i <= maxGridSize; i++){
+        let option = document.createElement("option");
+        option.value = i;
+        option.textContent = i.toString() + "x" + i.toString();
+        gridDropdown.appendChild(option);
+    }
+
+    gridDropdown.selectedIndex = gridSize - 1;
+}
 
 function toggleTool(){
     setTool(!isErasing);
