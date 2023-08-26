@@ -1,7 +1,10 @@
 body{
     user-select: none;
-    /*background-color: black;
-    color: white;*/
+    background-image: linear-gradient(#9BE564, #D7F75B);
+    background-attachment: fixed;
+    background-size: cover;
+    font-weight: bolder;
+    font-family: "Montserrat", sans-serif;
 }
 
 .content{
@@ -32,14 +35,21 @@ body{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 500px;
+    height: 460px;
+
+    background-image: linear-gradient(to bottom, #7d7b3a8c 0%, #ffffff00 95%, #ffffff00 100%);
+    background-attachment: fixed;
+    background-size: cover;
+
+    padding: 20px;
+    border-radius: 20px;
 }
 
 button{
     width: 100%;
     height: 50px;
     border-radius: 20px;
-    background-color: orange;
+    background-color: #F3B422;
     font-weight: bolder;
 }
 
@@ -69,3 +79,16 @@ input[type="color"] {
     align-items: center;
     gap: 10px
 }
+
+#grid-size{
+    height: 50px;
+    border-radius: 20px;
+    background-color: #F3B422;   
+    text-align: center;
+    border-width: 2px;
+    border-color: black;
+}
+
+#grid-size:focus{
+    border-radius: 20px 20px 0px 0px;
+}   
